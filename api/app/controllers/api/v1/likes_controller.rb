@@ -1,7 +1,7 @@
 class LikesController < ApplicationController
   before_action :authenticate_user!
 
-  def save_like
+  def create
     @like = current_user.likes.new(post_id: params[:post_id])
     @post_id = params[:post_id]
     existing_like = current_user.likes.where(post_id: params[:post_id])

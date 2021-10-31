@@ -5,11 +5,15 @@ Rails.application.routes.draw do
           registrations: 'api/v1/auth/registrations'
       }
 
-      resources :posts, only: [:index, :new, :create, :show, :destroy]
+      resources :posts, only: [:create, :show, :destroy]
       resources :comments, only: [:create, :show, :destroy]
-
-      get 'user', to: 'users#show'
-      get 'post/like', to: 'likes#save_like'
+      resources :likes, only: [:create]
+      resources :users, only: [:index, :profile, :follow] do
+        member do
+          get 'profile'
+          put 'follow'
+        end
+      end
     end
   end
 end

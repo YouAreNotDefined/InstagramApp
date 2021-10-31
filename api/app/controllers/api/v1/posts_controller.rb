@@ -2,17 +2,8 @@ class PostsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_post, only: [:show]
 
-  def index
-    @posts = current_user.posts.active
-  end
-
   def show
-    @comment = Comment.def new
     @comments = Comment.includes(:user).where(post_id: @post.id)
-  end
-
-  def new
-    @post = current_user.posts.new
   end
 
   def create
@@ -26,7 +17,8 @@ class PostsController < ApplicationController
   end
 
   def destroy
-
+    post = current_user.posts.find(params[:id])
+    post.destroy
   end
 
   private
