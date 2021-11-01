@@ -53,13 +53,14 @@ export default {
 
       this.$axios.post('/api/v1/auth', { email: this.email, password: this.password, password_confirmation: this.password_confirmation })
         .then(res => {
+          this.$auth.loginWith('local', {data: { email: this.email, password: this.password }})
           this.$router.push('/posts')
         })
         .catch(err => {
 
         })
         .finally(() => this.loading = false)
-    }
+    },
   }
 }
 </script>

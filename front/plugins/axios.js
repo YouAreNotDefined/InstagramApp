@@ -1,9 +1,11 @@
 export default ({ $axios }) => {
   $axios.onRequest(config => {
-    config.headers.client = localStorage.getItem("client")
-    config.headers["access-token"] = localStorage.getItem("access-token")
-    config.headers.uid = localStorage.getItem("uid")
-    config.headers["token-type"] = localStorage.getItem("token-type")
+    if (localStorage.getItem("client")) {
+      config.headers.client = localStorage.getItem("client")
+      config.headers["access-token"] = localStorage.getItem("access-token")
+      config.headers.uid = localStorage.getItem("uid")
+      config.headers["token-type"] = localStorage.getItem("token-type")
+    }
   })
 
   $axios.onResponse(response => {
