@@ -9,7 +9,7 @@ export default ({ $axios }) => {
   })
 
   $axios.onResponse(response => {
-    if (response.headers.client) {
+    if (response.headers["access-token"]) {
       localStorage.setItem("access-token", response.headers["access-token"])
       localStorage.setItem("client", response.headers.client)
       localStorage.setItem("uid", response.headers.uid)

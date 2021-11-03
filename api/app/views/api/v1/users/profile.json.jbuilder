@@ -1,7 +1,9 @@
 json.posts do
-  json.extract! @posts, :description, :image, :image_cache
+  json.array! @posts do |post|
+    json.merge! post.attributes
+  end
 end
 
 json.user do
-  json.extract! @user, :name, :image, :first_name, :last_name, :description, :website, :email
+  json.extract! @user, :id, :name, :image, :first_name, :last_name, :description, :website, :email
 end

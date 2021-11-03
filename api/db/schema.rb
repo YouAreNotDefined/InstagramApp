@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_27_115318) do
+ActiveRecord::Schema.define(version: 2021_11_03_114521) do
 
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "post_id"
@@ -31,6 +31,12 @@ ActiveRecord::Schema.define(version: 2021_10_27_115318) do
     t.index ["following_id"], name: "index_followers_on_following_id"
   end
 
+  create_table "hashtags", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "likes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "post_id"
@@ -38,6 +44,23 @@ ActiveRecord::Schema.define(version: 2021_10_27_115318) do
     t.datetime "updated_at", null: false
     t.index ["post_id"], name: "index_likes_on_post_id"
     t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
+  create_table "places", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
+    t.float "lat", null: false
+    t.float "lon", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "post_hashtags", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "post_id"
+    t.bigint "hashtag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["hashtag_id"], name: "index_post_hashtags_on_hashtag_id"
+    t.index ["post_id"], name: "index_post_hashtags_on_post_id"
   end
 
   create_table "posts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -49,6 +72,9 @@ ActiveRecord::Schema.define(version: 2021_10_27_115318) do
     t.text "description"
     t.integer "total_likes_count"
     t.integer "total_comments_count"
+    t.bigint "place_id"
+    t.boolean "commentable", default: true, null: false
+    t.index ["place_id"], name: "index_posts_on_place_id"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
@@ -93,5 +119,8 @@ ActiveRecord::Schema.define(version: 2021_10_27_115318) do
   add_foreign_key "followers", "users", column: "following_id"
   add_foreign_key "likes", "posts"
   add_foreign_key "likes", "users"
+  add_foreign_key "post_hashtags", "hashtags"
+  add_foreign_key "post_hashtags", "posts"
+  add_foreign_key "posts", "places"
   add_foreign_key "posts", "users"
 end

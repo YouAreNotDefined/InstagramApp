@@ -14,19 +14,19 @@
           ></v-autocomplete>
         </v-col>
         <v-col align="right" v-if="signedIn" class="mt-3">
-          <v-btn icon nuxt :to="'posts'">
+          <v-btn icon nuxt :to="'/posts'">
             <v-icon>mdi-home</v-icon>
           </v-btn>
-          <v-btn icon nuxt :to="'posts/new'">
+          <v-btn icon nuxt :to="'/posts/new'">
             <v-icon>mdi-shape-square-rounded-plus</v-icon>
           </v-btn>
-          <v-btn icon nuxt :to="'chat'">
+          <v-btn icon nuxt :to="'/chat'">
             <v-icon>mdi-chat</v-icon>
           </v-btn>
-          <v-btn icon nuxt :to="'likes'">
+          <v-btn icon nuxt :to="'/likes'">
             <v-icon>mdi-cards-heart-outline</v-icon>
           </v-btn>
-          <v-btn icon nuxt :to="'account'">
+          <v-btn icon nuxt :to="'/account'">
             <v-icon>mdi-account-circle-outline</v-icon>
           </v-btn>
           <v-btn icon @click="logout">
