@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       }
 
       resources :posts, only: [:create, :show, :destroy]
+      resources :hashtags, only: [:index, :show]
       resources :comments, only: [:create, :show, :destroy]
       resources :likes, only: [:create]
       resources :users, only: [:index, :profile, :follow] do

@@ -26,9 +26,8 @@ module Api
       private
 
       def set_post
-        @post = Post.find(params[:id]) if params[:id].present?
+        @post = current_api_v1_user.posts.find(params[:id])
       end
-
 
       def post_params
         params.require(:post).permit(:description, :place_id, :commentable, :image)

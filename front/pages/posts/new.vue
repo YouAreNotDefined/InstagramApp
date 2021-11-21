@@ -32,10 +32,13 @@
             label="位置情報を追加する"
             prepend-icon="mdi-map-marker"
             editable
+            @input="searchPlace"
           ></v-overflow-btn>
           <v-switch
             v-model="data.commentable"
             label="コメントをオフにする"
+            false-value="true"
+            true-value="false"
           ></v-switch>
           <v-card-actions>
             <v-btn color="primary" @click="post" :loading="loading">シェア</v-btn>
@@ -53,7 +56,7 @@ export default {
       loading: false,
       data: {
         image: null,
-        place_id: '',
+        place_id: null,
         description: null,
         commentable: true,
       },
@@ -99,6 +102,7 @@ export default {
     clearImg() {
       this.image = null
     },
+    searchPlace() {},
   },
 }
 </script>

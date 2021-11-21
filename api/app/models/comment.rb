@@ -2,9 +2,11 @@ class Comment < ApplicationRecord
   belongs_to :post
   belongs_to :user
 
-  validates_presence_of :comment
-  validates_presence_of :user_id
-  validates_presence_of :post_id
+  with_options presence: true do
+    validates :comment
+    validates :user_id
+    validates :post_id
+  end
 
   after_create :increase_post_comment_like
   after_destroy :decrease_post_comment_like
