@@ -1,7 +1,12 @@
 json.posts do
-  json.extract! @posts, :description, :image, :image_cache
+  json.array! @posts do |post|
+    json.content post
+    json.user do
+      json.extract! post.user, :id, :name, :username, :image
+    end
+  end
 end
 
 json.suggestions do
-  json.extract! @follower_suggestions, :name, :image, :username
+  json.array! @follower_suggestions, :name, :image, :username
 end

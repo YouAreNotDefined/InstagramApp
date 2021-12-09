@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_03_114521) do
+ActiveRecord::Schema.define(version: 2021_11_21_121419) do
 
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "post_id"
@@ -70,8 +70,8 @@ ActiveRecord::Schema.define(version: 2021_11_03_114521) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "description"
-    t.integer "total_likes_count"
-    t.integer "total_comments_count"
+    t.integer "total_likes_count", default: 0
+    t.integer "total_comments_count", default: 0
     t.bigint "place_id"
     t.boolean "commentable", default: true, null: false
     t.index ["place_id"], name: "index_posts_on_place_id"

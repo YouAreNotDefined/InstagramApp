@@ -6,10 +6,19 @@ module Api
 
       def show
         @comments = Comment.includes(:user).where(post_id: @post.id)
+        @hashtags = @post.hashtags
       end
 
       def create
         @post = current_api_v1_user.posts.new(post_params)
+        tag_names = @post.extract_hashtags
+
+        if tag_names.any?
+          tag_names.each do |tag_name|
+            tag = HashTag.create(name: tag_name)
+            @post.hashtags.create(name: tag_name)
+          end
+        end
 
         if @post.save
           render json: @post, status: :created

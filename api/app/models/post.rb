@@ -15,13 +15,27 @@ class Post < ApplicationRecord
     validates :user_id
   end
 
-  before_create :set_active
+  before_create ->{
+    set_active
+    set_count
+  }
 
   scope :active, -> { where(:active => true)}
+
+  def extract_hashtags
+    return if description.blank?
+
+    description.scan(/[#＃][\w\p{Han}ぁ-ヶｦ-ﾟー]+/)
+  end
 
   private
 
   def set_active
     self.active = true
+  end
+
+  def set_count
+    self.total_likes_count ||= 0
+    self.total_comments_count ||= 0
   end
 end

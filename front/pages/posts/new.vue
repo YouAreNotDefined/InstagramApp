@@ -72,7 +72,7 @@ export default {
       const formData = new FormData();
 
       Object.entries(this.data).forEach(([key, value]) => {
-        formData.append(`post[${key}]`, value)
+        if(value) formData.append(`post[${key}]`, value)
       })
 
       this.$axios.post('/api/v1/posts', formData)

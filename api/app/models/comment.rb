@@ -14,10 +14,10 @@ class Comment < ApplicationRecord
   private
 
   def increase_post_comment_like
-    Post.find(self.post_id).increment(:total_comments_count).save
+    Post.find(self.post_id).increment(:total_comments_count)!
   end
 
   def decrease_post_comment_like
-    Post.find(self.post_id).decrement(:total_comments_count).save
+    Post.find(self.post_id).decrement(:total_comments_count)!
   end
 end
