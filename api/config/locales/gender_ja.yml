@@ -1,0 +1,14 @@
+ja:
+  activerecord:
+    models:
+      gender: ユーザ情報
+    attributes:
+      gender:
+        type: 性別
+  enums:
+    gender:
+      type:
+        male: 男性
+        female: 女性
+        customize: カスタマイズ
+        no_answer: 答えたくない

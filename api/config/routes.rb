@@ -17,6 +17,7 @@ Rails.application.routes.draw do
           put 'follow'
         end
       end
+      resources :genders, only: [:index]
     end
   end
 end

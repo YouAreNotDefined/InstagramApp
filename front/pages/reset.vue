@@ -66,10 +66,7 @@ export default {
       this.loading = true
 
       this.$axios.post('/api/v1/auth/password', { email: this.email, 'redirect_url': 'http://localhost:8080/reset/' })
-        .then(res => {
-        })
-        .catch(err => {
-        })
+        .catch(err => {})
         .finally(() => this.loading = false)
     },
     reset() {

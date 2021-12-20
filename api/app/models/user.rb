@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
   has_many :likes, dependent: :destroy
   has_many :followers
 
+  belongs_to :gender, :optional => true
+
   def total_followers
     Follower.where(follower_id: self.id).count
   end

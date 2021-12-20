@@ -5,5 +5,5 @@ json.posts do
 end
 
 json.user do
-  json.extract! @user, :id, :name, :image, :first_name, :last_name, :description, :website, :email
+  json.extract! @user, :id, :name, :image, :nickname, :description, :website, :email, :gender_id, :gender_detail, :phone_number
 end

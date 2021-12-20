@@ -16,9 +16,6 @@
           </v-card-actions>
         </v-form>
       </v-card-text>
-      <v-card-text>
-        <nuxt-link to="/reset">パスワードを忘れた場合</nuxt-link>
-      </v-card-text>
     </v-card>
     <v-divider></v-divider>
     <div class="pt-8 pb-4">
@@ -51,9 +48,9 @@ export default {
     submit() {
       this.loading = true
 
-      this.$axios.post('/api/v1/auth', { email: this.email, password: this.password, password_confirmation: this.password_confirmation })
+      this.$axios.post('/api/v1/auth', { registration: {email: this.email, password: this.password, password_confirmation: this.password_confirmation} })
         .then(res => {
-          this.$auth.loginWith('local', {data: { email: this.email, password: this.password }})
+          this.$auth.loginWith('local', { data: { email: this.email, password: this.password }})
           this.$router.push('/posts')
         })
         .catch(err => {

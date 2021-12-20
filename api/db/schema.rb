@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_21_121419) do
+ActiveRecord::Schema.define(version: 2021_12_19_125353) do
 
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "post_id"
@@ -29,6 +29,13 @@ ActiveRecord::Schema.define(version: 2021_11_21_121419) do
     t.datetime "updated_at", null: false
     t.index ["follower_id"], name: "index_followers_on_follower_id"
     t.index ["following_id"], name: "index_followers_on_following_id"
+  end
+
+  create_table "genders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "type"
+    t.string "detail"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "hashtags", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -99,16 +106,17 @@ ActiveRecord::Schema.define(version: 2021_11_21_121419) do
     t.string "nickname"
     t.string "image"
     t.string "email"
+    t.integer "phone_number"
+    t.string "gender_detail"
+    t.string "description"
+    t.string "website"
     t.text "tokens"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "first_name", limit: 20
-    t.string "last_name", limit: 20
-    t.string "username", limit: 20
-    t.string "description"
-    t.string "website"
+    t.bigint "gender_id", default: 4, null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["gender_id"], name: "index_users_on_gender_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
@@ -123,4 +131,5 @@ ActiveRecord::Schema.define(version: 2021_11_21_121419) do
   add_foreign_key "post_hashtags", "posts"
   add_foreign_key "posts", "places"
   add_foreign_key "posts", "users"
+  add_foreign_key "users", "genders"
 end

@@ -1,10 +1,10 @@
 FROM ruby:2.4.1
 
 RUN apt-get update -qq && \
-    apt-get install -y build-essential \
-                       libpq-dev \
-                       nodejs \
-   && rm -rf /var/lib/apt/lists/*
+  apt-get install -y build-essential \
+  libpq-dev \
+  nodejs \
+  && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir /app
 ENV APP_ROOT /app
