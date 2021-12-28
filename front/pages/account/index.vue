@@ -5,19 +5,16 @@
         <v-avatar
           color="teal"
           size="100"
-
         >
-          <img
+          <v-img
             v-if="user.image"
-            src="https://cdn.vuetifyjs.com/images/john.jpg"
-            alt="John"
-          >
+            :src="user.image.url"
+          ></v-img>
         </v-avatar>
       </v-col>
       <v-col cols="6" class="ml-10">
         <v-row align="center">
           <v-col cols="1">
-            <strong v-html="'kazuki'"></strong>
             <strong v-html="user.name"></strong>
           </v-col>
           <v-col cols="10">

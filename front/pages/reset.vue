@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import MixinForm from "../plugins/mixinForm.js";
+import MixinForm from "../plugins/mixinSignValidator.js";
 
 export default {
   auth: false,

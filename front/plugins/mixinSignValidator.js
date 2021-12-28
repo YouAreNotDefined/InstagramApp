@@ -9,6 +9,10 @@ export default {
         required: (value) => !!value || 'パスワードは必須です',
         regex: (value) => /^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)[a-zA-Z\d]{8,15}$/.test(value) || '半角英小文字大文字数字を含む7文字以上15文字以下で入力してください'
       },
+      nameRules: {
+        required: (value) => !!value || '必須です',
+        regex: (value) => /^([!-~]{1,20})$/.test(value) || '20文字以下で入力してください'
+      },
     }
   }
 }

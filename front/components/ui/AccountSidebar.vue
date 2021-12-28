@@ -14,7 +14,7 @@
             v-for="item in sides"
             :key="item.title"
           >
-            <v-btn text nuxt :to='item.link'>
+            <v-btn text nuxt :to='item.link' width="100%">
               <v-list-item-title>{{ item.title }}</v-list-item-title>
             </v-btn>
           </v-list-item>

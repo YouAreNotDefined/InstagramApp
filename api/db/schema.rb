@@ -102,13 +102,13 @@ ActiveRecord::Schema.define(version: 2021_12_19_125353) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
-    t.string "name"
-    t.string "nickname"
+    t.string "name", limit: 20, null: false
+    t.string "nickname", limit: 20, null: false
     t.string "image"
-    t.string "email"
+    t.string "email", null: false
     t.integer "phone_number"
     t.string "gender_detail"
-    t.string "description"
+    t.string "description", limit: 150
     t.string "website"
     t.text "tokens"
     t.datetime "created_at", null: false

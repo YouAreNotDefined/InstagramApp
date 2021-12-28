@@ -18,7 +18,7 @@ module.exports = {
     '@nuxtjs/auth'
   ],
   plugins: [
-    { src: '~/plugins/axios.js', ssr: false }
+    { src: '~/plugins/axios.js', ssr: false },
   ],
   axios: {
     baseURL: 'http://localhost:3000'

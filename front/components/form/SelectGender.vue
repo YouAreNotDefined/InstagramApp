@@ -29,6 +29,15 @@
               :label="option.type_i18n"
               :value="option.id"
             ></v-radio>
+            <v-text-field
+              v-show="tmp === 3"
+              v-model="tmpCustomizeValue"
+              outlined
+              clearable
+              dense
+              hide-details="auto"
+              placeholder="カスタマイズ"
+            ></v-text-field>
           </v-radio-group>
           <v-divider></v-divider>
           <v-card-actions>
@@ -69,6 +78,10 @@ export default {
       type: String,
       default: '',
     },
+    gender_detail: {
+      type: String,
+      default: null,
+    },
   },
   data() {
     return {
@@ -76,11 +89,12 @@ export default {
       cancelDialog: false,
       options: [],
       tmp: null,
+      tmpCustomizeValue: null,
     }
   },
   computed: {
     disable() {
-      return (this.tmp === this.value) || this.tmp === null
+      return (this.tmp === this.value) && this.tmpCustomizeValue === this.gender_detail
     },
   },
   watch: {
@@ -92,6 +106,7 @@ export default {
     const { data } = await this.$axios.get('/api/v1/genders')
     this.options = data.genders
     this.tmp = this.value
+    this.tmpCustomizeValue = this.gender_detail
   },
   methods: {
     cancel() {
@@ -100,6 +115,9 @@ export default {
     },
     decide() {
       this.$emit("input", this.tmp);
+      if (this.tmp === 3) {
+        this.$emit("inputCustomizeValue", this.tmpCustomizeValue)
+      }
       this.dialog = false
     },
   },

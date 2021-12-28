@@ -16,11 +16,14 @@
             cols="4"
             md="1"
           >
-            <v-avatar >
-              <img
-                src="https://cdn.vuetifyjs.com/images/john.jpg"
-                alt="John"
-              >
+            <v-avatar
+              color="teal"
+              size="50"
+            >
+              <v-img
+                v-if="post.user.image"
+                :src="post.user.image.url"
+              ></v-img>
             </v-avatar>
           </v-col>
           <v-col

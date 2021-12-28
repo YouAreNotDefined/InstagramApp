@@ -6,11 +6,13 @@
       </v-card-title>
       <v-card-text>
         <v-form>
-          <v-text-field prepend-icon="mdi-email" label="メールアドレス" v-model="email" :rules="[emailRules.required, emailRules.regex]"/>
+          <AccountInput v-model="registration.name" placeholder="名前" :counter="20" :rules="[nameRules.required, nameRules.regex]" />
+          <AccountInput v-model="registration.nickname" placeholder="ユーザーネーム" :counter="20" :rules="[nameRules.required, nameRules.regex]" />
+          <v-text-field prepend-icon="mdi-email" label="メールアドレス" v-model="registration.email" :rules="[emailRules.required, emailRules.regex]"/>
           <v-text-field :type="showPassword ? 'text' : 'password'" @click:append="showPassword = !showPassword"
-          prepend-icon="mdi-lock" :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" label="パスワード" v-model="password" :rules="[passwordRules.required, passwordRules.regex]"/>
+          prepend-icon="mdi-lock" :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" label="パスワード" v-model="registration.password" :rules="[passwordRules.required, passwordRules.regex]"/>
           <v-text-field :type="showPassword ? 'text' : 'password'" @click:append="showPassword = !showPassword"
-          prepend-icon="mdi-lock" :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" label="パスワード確認" v-model="password_confirmation" :rules="[passwordConfirmationRules.required, passwordConfirmationRules.regex]"/>
+          prepend-icon="mdi-lock" :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" label="パスワード確認" v-model="registration.password_confirmation" :rules="[passwordConfirmationRules.required, passwordConfirmationRules.regex]"/>
           <v-card-actions>
             <v-btn color="primary" @click="submit" :loading="loading">登録</v-btn>
           </v-card-actions>
@@ -26,21 +28,29 @@
 </template>
 
 <script>
-import MixinForm from "../plugins/mixinForm.js";
+import MixinForm from "../plugins/mixinSignValidator.js";
+import AccountInput from "../components/form/AccountInput.vue"
 
 export default {
   auth: false,
   mixins: [MixinForm],
+  components: {
+    AccountInput,
+  },
   data() {
     return {
       showPassword: false,
-      email: null,
-      password: null,
-      password_confirmation: null,
       loading: false,
       passwordConfirmationRules: {
         required: (value) => !!value || 'パスワードを再度入力してください',
-        regex: (value) => value === this.password || 'パスワードが違います'
+        regex: (value) => value === this.registration.password || 'パスワードが違います'
+      },
+      registration: {
+        email: null,
+        password: null,
+        password_confirmation: null,
+        name: null,
+        nickname: null,
       },
     }
   },
@@ -48,7 +58,7 @@ export default {
     submit() {
       this.loading = true
 
-      this.$axios.post('/api/v1/auth', { registration: {email: this.email, password: this.password, password_confirmation: this.password_confirmation} })
+      this.$axios.post('/api/v1/auth', this.registration)
         .then(res => {
           this.$auth.loginWith('local', { data: { email: this.email, password: this.password }})
           this.$router.push('/posts')
